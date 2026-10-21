@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ortak Kit Denemesi</title>
+</head>
+<body>
+<script src="kit.js"></script>
+<script src="ses.js"></script>
+<script src="karakterler.js"></script>
+<script>
+// Ortak kitin çalıştığını görmek için küçük sahne: tıkla → parçacık, sarsıntı, ses, uçan sayı.
+KarakterGorselleriYukle('./');
+const sahne = {
+  ciz(c) {
+    c.fillStyle = '#141420'; c.fillRect(0, 0, Kit.W, Kit.H);
+    Karakterler.forEach((k, i) => Kit.portre(c, Kit.gorsel('portre_' + k.id), 100 + i * 135, 200, 55, { kenar: k.renk }));
+    Kit.metin(c, 'Ortak kit denemesi — tıkla', Kit.W / 2, 60, { boyut: 34, kontur: '#000' });
+    Kit.bar(c, 340, 330, 600, 22, (Math.sin(Kit.zaman) + 1) / 2, '#4ade80', { kenar: '#000' });
+    if (Kit.dugme(c, 540, 400, 200, 56, 'Ses çal')) Ses.cal('seviye');
+  },
+  guncelle() {
+    if (Kit.tikVarMi()) {
+      const { x, y } = Kit.fare;
+      Kit.parcacik(x, y, { sayi: 24, renk: ['#ffd166', '#ef476f', '#fff'], hiz: 380 });
+      Kit.halka(x, y, { renk: '#ffd166', r1: 90 });
+      Kit.yaziUcur(x, y - 20, Math.floor(Math.random() * 30 + 5), { renk: '#ffd166' });
+      Kit.salla(10, 0.25); Kit.durakla(0.05); Ses.cal('kritik');
+    }
+  },
+};
+Kit.baslat(sahne);
+</script>
+</body>
+</html>
